@@ -1,11 +1,14 @@
 use regex::Regex;
 
+const SINGLE: &str = r"/(?:\./)+";
+const DOUBLE: &str = r"[^/]+/\.\./";
+
 /**
  * Cleans the given path.
  */
 pub fn clean_path(path: &str) -> String {
-	let single_regex = Regex::new("/(?:\\./)+").unwrap();
-	let double_regex = Regex::new("[^/]+/\\.\\./").unwrap();
+	let single_regex = Regex::new(SINGLE).unwrap();
+	let double_regex = Regex::new(DOUBLE).unwrap();
 
 	let mut result = single_regex.replace_all(path, "/").to_string();
 

@@ -20,13 +20,13 @@ fn main() {
 	let content = match read_file(&path) {
 		Ok(val) => val,
 		Err(error) => return match error {
-			ReadError::Open => eprintln!("Could not resolve path: \"{}\"", path),
-			ReadError::Read => eprintln!("Contains invalid content: \"{}\"", path),
+			ReadError::Open => eprintln!("Could not resolve path: '{}''", path),
+			ReadError::Read => eprintln!("Contains invalid content: '{}'", path),
 		},
 	};
 
 	let lines = content.matches("\n").count() + !content.ends_with("\n") as usize;
 	let plural = if lines != 1 { "s" } else { "" };
 
-	println!("\"{}\" consists of {} line{}!", path, lines, plural);
+	println!("'{}' consists of {} line{}!", path, lines, plural);
 }

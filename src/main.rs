@@ -20,7 +20,7 @@ fn main() {
 	let content = match read_file(&path) {
 		Ok(val) => val,
 		Err(error) => return match error {
-			ReadError::Open => eprintln!("Could not resolve path: '{}''", path),
+			ReadError::Open => eprintln!("Could not resolve path: '{}'", path),
 			ReadError::Read => eprintln!("Contains invalid content: '{}'", path),
 		},
 	};

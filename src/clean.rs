@@ -1,6 +1,13 @@
 use regex::Regex;
 
+/**
+ * The string used for the single-dot regex.
+ */
 const SINGLE: &str = r"/(?:\./)+";
+
+/**
+ * The string used for the double-dot regex.
+ */
 const DOUBLE: &str = r"[^/]+/\.\./";
 
 /**

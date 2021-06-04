@@ -5,9 +5,6 @@ use clean::*;
 use read::*;
 use std::env::{args, current_dir};
 
-/**
- * The entry point of the application.
- */
 fn main() {
 	let input = match args().nth(1) {
 		Some(val) if !val.is_empty() => val,

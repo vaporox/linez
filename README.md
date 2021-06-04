@@ -1,4 +1,4 @@
-## About
+# Linez
 
 This is a command line utility to get the line count of a local file.
 

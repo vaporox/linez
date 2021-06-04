@@ -1,18 +1,8 @@
 use regex::Regex;
 
-/**
- * The string used for the single-dot regex.
- */
 const SINGLE: &str = r"/(?:\./)+";
-
-/**
- * The string used for the double-dot regex.
- */
 const DOUBLE: &str = r"[^/]+/\.\./";
 
-/**
- * Cleans the given path.
- */
 pub fn clean_path(path: &str) -> String {
 	let single_regex = Regex::new(SINGLE).unwrap();
 	let double_regex = Regex::new(DOUBLE).unwrap();

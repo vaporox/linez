@@ -1,30 +1,28 @@
-mod clean;
-mod read;
+mod util;
 
-use clean::*;
-use read::*;
-use std::env::{args, current_dir};
+use std::env;
+use std::fs;
+use std::path::PathBuf;
 
 fn main() {
-	let input = match args().nth(1) {
-		Some(val) if !val.is_empty() => val,
-		_ => return eprintln!("No file path provided!"),
-	};
+	let args = env::args().skip(1);
+	let (options, paths) = args.partition::<Vec<_>, _>(|e| e.starts_with("--"));
 
-	let buf = current_dir().unwrap().join(input);
-	let path = clean_path(buf.to_str().unwrap());
+	if paths.is_empty() {
+		util::exit("No query specified");
+	}
 
-	let content = match read_file(&path) {
-		Ok(val) => val,
-		Err(error) => {
-			return match error {
-				ReadError::Open => eprintln!("Could not resolve path: '{}'", path),
-				ReadError::Read => eprintln!("Contains invalid content: '{}'", path),
-			}
-		}
-	};
+	let input = paths.iter().collect::<PathBuf>();
+	let path = util::unwrap(fs::canonicalize(input));
 
+	let content = util::unwrap(fs::read_to_string(&path));
 	let lines = content.matches('\n').count() + !content.ends_with('\n') as usize;
+
+	if options.iter().any(|e| e == "--compact") {
+		return println!("{}", lines);
+	}
+
+	let path = path.to_string_lossy();
 	let plural = if lines != 1 { "s" } else { "" };
 
 	println!("'{}' consists of {} line{}!", path, lines, plural);

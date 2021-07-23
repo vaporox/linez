@@ -5,7 +5,4 @@ authors = ["Vaporox"]
 edition = "2018"
 description = "Get the line count of a file"
 repository = "https://github.com/vaporox/linez"
-license = "MIT"
-
-[dependencies]
-regex = "1"
+license = "ISC"

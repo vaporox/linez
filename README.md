@@ -2,11 +2,18 @@
 
 This is a command line utility to get the line count of a local file.
 
+## Installation
+
+1. Install [Rust](https://rust-lang.org), which is required to build it
+2. Install the executable with `cargo install --git https://github.com/vaporox/linez`
+
 ## Usage
 
-1. Install [Rust]. This will also install Cargo which you will need later.
-2. [Download] or clone the repository. (`git clone https://github.com/vaporox/linez`)
-3. Open the project in a terminal and use it! (`cargo run <file>`)
+```
+linez <path> [--compact]
+```
 
-[Download]: https://github.com/vaporox/linez/archive/main.zip
-[Rust]: https://rust-lang.org
+| Parameter | Default  | Description           |
+|:---------:|:--------:|-----------------------|
+| path      | /        | Path to the file      |
+| compact   | off      | Output only the count |

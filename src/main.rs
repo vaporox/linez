@@ -1,24 +1,21 @@
-mod util;
-
-use std::env;
+use cli::Args;
 use std::fs;
 use std::path::PathBuf;
 
 fn main() {
-	let args = env::args().skip(1);
-	let (options, paths) = args.partition::<Vec<_>, _>(|e| e.starts_with("--"));
+	let args = Args::parse();
 
-	if paths.is_empty() {
-		util::exit("No query specified");
+	if args.positionals.is_empty() {
+		cli::exit("No query specified");
 	}
 
-	let input = paths.iter().collect::<PathBuf>();
-	let path = util::unwrap(fs::canonicalize(input));
+	let input = args.positionals.iter().collect::<PathBuf>();
+	let path = cli::unwrap(fs::canonicalize(input));
 
-	let content = util::unwrap(fs::read_to_string(&path));
+	let content = cli::unwrap(fs::read_to_string(&path));
 	let lines = content.matches('\n').count() + !content.ends_with('\n') as usize;
 
-	if options.iter().any(|e| e == "--compact") {
+	if args.options.contains_key("compact") {
 		return println!("{}", lines);
 	}
 
